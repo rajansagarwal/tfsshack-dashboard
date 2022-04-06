@@ -70,28 +70,31 @@ export default function Account({ session }) {
 
   let favicon = document.getElementById('favicon');
 
+  function name() {
+    if (username === null || 'email_address') {
+        return `${session.user.email}`
+    }
+    else {
+        return `${username}`
+    }
+  }
+  
+  const naming = name();
+
   useEffect(() => {
-    document.title = `${username}'s Dashboard`;
+    document.title = `${naming}'s Dashboard`;
     favicon = `${avatar_url}`;
   })
 
-function name() {
-  if (username === 'email_address' || '') {
-      return `${session.user.email}`
-  }
-  else {
-      return `${username}`
-  }
-}
-
-const naming = name();
-
   return (
     <div>
-        Hey, {naming}!
+        <h1>Hey, {naming}</h1>
+        <h2>Welcome to the Turner Fenton Hack Club Dashboard!</h2>
         <br/><br/>
         <div>Update your preferences <Link href='/account'>here!</Link></div>
         <div>
+      </div>
+      <div>
       </div>
     </div>
   )

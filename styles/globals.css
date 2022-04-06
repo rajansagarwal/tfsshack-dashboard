@@ -32,11 +32,9 @@ body,
   overflow-x: hidden;
 }
 
-/* Grid */
-
 .container {
-  width: 90%;
-  margin-left: auto;
+  width: 100%;
+  margin-left: 20vw;
   margin-right: auto;
 }
 .row {
@@ -158,14 +156,12 @@ body,
 }
 
 @media only screen and (min-width: 60em) {
-  /* 960px */
   .container {
     width: 75%;
+    margin-left: 10vw;
     max-width: 60rem;
   }
 }
-
-/* Forms */
 
 label {
   display: block;
@@ -188,8 +184,6 @@ input {
 input[disabled] {
   color: var(--custom-color-secondary);
 }
-
-/* Utils */
 
 .block {
   display: block;
@@ -234,8 +228,6 @@ input[disabled] {
   opacity: 50%;
 }
 
-/* Button */
-
 button,
 .button {
   color: var(--custom-color);
@@ -256,8 +248,6 @@ button.primary,
   background-color: var(--custom-color-brand);
   border: 1px solid var(--custom-color-brand);
 }
-
-/* Widgets */
 
 .card {
   width: 100%;

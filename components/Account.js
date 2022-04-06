@@ -14,6 +14,18 @@ export default function Account({ session }) {
     getProfile()
   }, [session])
 
+  function name() {
+    if (username === null || 'email_address') {
+        return `${session.user.email}`
+    }
+    else {
+        return `${username}`
+    }
+  }
+  
+  const naming = name();
+
+
   async function getProfile() {
     try {
       setLoading(true)
@@ -68,11 +80,8 @@ export default function Account({ session }) {
     }
   }
 
-  let favicon = document.getElementById('favicon');
-
   useEffect(() => {
-    document.title = `${username}`;
-    favicon = `${avatar_url}`;
+    document.title = `${naming}'s Account`;
   })
 
   return (
@@ -133,15 +142,6 @@ export default function Account({ session }) {
           }}>Return to Dashboard</Link>
         </button>
       </div><br/><br/>
-      <div><b>Saved User Preferences:</b>
-
-        <pre>Name: {username}</pre>
-        <pre>Avatar URL: {avatar_url}</pre>
-        <Image
-        url={avatar_url}
-        size={200}/>
-        <pre>Website: <a href={website}>{website}</a></pre>
-      </div>
     </div>
   )
 }
