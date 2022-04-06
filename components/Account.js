@@ -132,16 +132,7 @@ export default function Account({ session }) {
           Sign Out
         </button>
       </div>
-      
-      <div>
-        <button className="button block" onClick={() => supabase.auth.signOut()} style={{
-          backgroundColor: '#000000',
-        }}>
-          <Link href='/#' style={{
-            textDecoration: 'none',
-          }}>Return to Dashboard</Link>
-        </button>
-      </div><br/><br/>
+      <br/><br/>
     </div>
   )
 }
