@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../utils/supabaseClient'
 import Avatar from './Avatar'
+import Image from './Image'
 
 export default function Account({ session }) {
   const [loading, setLoading] = useState(true)
@@ -125,6 +126,9 @@ export default function Account({ session }) {
 
         <pre>Name: {username}</pre>
         <pre>Avatar URL: {avatar_url}</pre>
+        <Image
+        url={avatar_url}
+        size={200}/>
         <pre>Website: <a href={website}>{website}</a></pre>
       </div>
     </div>
