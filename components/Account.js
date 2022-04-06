@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../utils/supabaseClient'
 import Avatar from './Avatar'
 import Image from './Image'
+import Link from 'next/link'
 
 export default function Account({ session }) {
   const [loading, setLoading] = useState(true)
@@ -120,6 +121,16 @@ export default function Account({ session }) {
       <div>
         <button className="button block" onClick={() => supabase.auth.signOut()}>
           Sign Out
+        </button>
+      </div>
+      
+      <div>
+        <button className="button block" onClick={() => supabase.auth.signOut()} style={{
+          backgroundColor: '#000000',
+        }}>
+          <Link href='/#' style={{
+            textDecoration: 'none',
+          }}>Return to Dashboard</Link>
         </button>
       </div><br/><br/>
       <div><b>Saved User Preferences:</b>
