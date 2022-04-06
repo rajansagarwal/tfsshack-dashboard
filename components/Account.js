@@ -53,7 +53,7 @@ export default function Account({ session }) {
       }
 
       let { error } = await supabase.from('profiles').upsert(updates, {
-        returning: 'minimal', // Don't return the value after inserting
+        returning: 'minimal', 
       })
 
       if (error) {
@@ -66,10 +66,15 @@ export default function Account({ session }) {
     }
   }
 
+  let favicon = document.getElementById('favicon');
+
+  useEffect(() => {
+    document.title = `${username}`;
+    favicon = `${avatar_url}`;
+  })
+
   return (
     <div className="form-widget">
-        <div><pre>{username}</pre><pre><a href={website}>{website}</a></pre><pre>{avatar_url}</pre></div>
-
         <Avatar
       url={avatar_url}
       size={150}
@@ -115,6 +120,12 @@ export default function Account({ session }) {
         <button className="button block" onClick={() => supabase.auth.signOut()}>
           Sign Out
         </button>
+      </div><br/><br/>
+      <div><b>Saved User Preferences:</b>
+
+        <pre>Name: {username}</pre>
+        <pre>Avatar URL: {avatar_url}</pre>
+        <pre>Website: <a href={website}>{website}</a></pre>
       </div>
     </div>
   )
