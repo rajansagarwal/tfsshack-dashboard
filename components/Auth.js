@@ -4,16 +4,19 @@ import { supabase } from '../utils/supabaseClient'
 export default function Auth() {
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
+  const [warning, setWarning] = useState('')
 
   const handleLogin = async (email) => {
     try {
       setLoading(true)
       const { error } = await supabase.auth.signIn({ email })
       if (error) throw error
-      if (email.endsWith('pdsb.net') !== true) throw error
-      alert('Check your email for the login link!')
+      if (email.endsWith('@pdsb.net') !== true) {
+        throw error & setWarning('Must be a PDSB account!')
+      }
+      setWarning('Check your email for the login link!')
     } catch (error) {
-      alert(error.error_description || error.message)
+      setWarning(error.error_description || error.message)
     } finally {
       setLoading(false)
     }
@@ -45,6 +48,7 @@ export default function Auth() {
             <span>{loading ? 'Sending...' : 'Send magic link'}</span>
           </button>
         </div>
+        {warning}
       </div>
     </div>
   )
