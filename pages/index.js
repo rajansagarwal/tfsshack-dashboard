@@ -20,6 +20,7 @@ export default function Home() {
     <div>
     <div className="container" style={{ padding: '50px 0 100px 0' }}>
       {!session ? <Auth /> : <Dashboard key={session.user.id} session={session} />}
+      
     </div>
     </div>
   )

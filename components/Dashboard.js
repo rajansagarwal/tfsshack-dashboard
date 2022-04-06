@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, PropTypes } from 'react'
 import { supabase } from '../utils/supabaseClient'
 import Avatar from './Avatar'
 import Image from './Image'
@@ -75,11 +75,24 @@ export default function Account({ session }) {
     favicon = `${avatar_url}`;
   })
 
+function name() {
+  if (username === 'email_address' || '') {
+      return `${session.user.email}`
+  }
+  else {
+      return `${username}`
+  }
+}
+
+const naming = name();
+
   return (
     <div>
-        Hey, {username}!
+        Hey, {naming}!
         <br/><br/>
         <div>Update your preferences <Link href='/account'>here!</Link></div>
+        <div>
+      </div>
     </div>
   )
 }
