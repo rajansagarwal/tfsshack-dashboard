@@ -103,7 +103,7 @@ export default function Account({ session }) {
         <input
           id="username"
           type="text"
-          value={username || ''}
+          value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>

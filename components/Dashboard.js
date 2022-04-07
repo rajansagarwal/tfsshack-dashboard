@@ -55,7 +55,7 @@ function name() {
   return (
     <div>
         <h1>Hey, {naming}</h1>
-        <h2>Welcome to the Turner Fenton Hack Club Dashboard!</h2>
+        <h2>Welcome to the <span className="h2-span">Turner Fenton Hack Club Dashboard!</span></h2>
         <br/><br/>
         <div> 
         </div>

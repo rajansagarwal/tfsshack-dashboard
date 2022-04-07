@@ -13,7 +13,7 @@ export async function getStaticProps() {
   const records = await airtable
     .base(process.env.NEXT_PUBLIC_BASE_ID)('Web')
     .select({
-      fields: ['Name'],
+      fields: ['Name', 'Details', 'Description', 'Type'],
       view: 'Grid View',
     })
     .all();
@@ -22,6 +22,9 @@ export async function getStaticProps() {
     return {
       name: sig.get('Name'),
       type: sig.get('Name'),
+      status: sig.get('Type'),
+      details: sig.get('Details'),
+      description: sig.get('Description')
     };
   });
 
@@ -29,17 +32,34 @@ export async function getStaticProps() {
     props: {
       products,
     },
-    revalidate: 30,
+    revalidate: 60,
   };
 }
 
-function Product({ name }) {
+function Product({ name, description, details, status }) {
+
+  function Colours() {
+    if(status == 'Resource') {
+        return '#08b445'
+    }
+    if (status == 'Soon') {
+        return '#c89809'
+    }
+    if (status == 'Closed') {
+        return 'red'
+    }
+}
   return (      
         <div className="col-12 collection">
          <div className="card">
+           <div className="tags">
              <h2>{name}</h2>
-             <i>Content Description Goes Here</i>
-             <p>Actual Content Goes Here </p>
+             <div className="tag" style={{
+               backgroundColor: Colours(),
+             }}><span className="tag-content">{status}</span></div>
+            </div>
+             <i>{description}</i>
+             <p>{details}</p>
          </div>
          </div>
   );
@@ -66,6 +86,9 @@ export default function Web({ products }) {
           <Product
             key={sig.name}
             name={sig.name}
+            description={sig.description}
+            details={sig.details}
+            status={sig.status}
           />    
         ))}
         </div>

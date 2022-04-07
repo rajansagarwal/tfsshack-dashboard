@@ -187,6 +187,32 @@ input {
   color: var(--custom-color);
 }
 
+.tags {
+  display: flex;
+}
+
+h2 {
+  font-weight: 400;
+}
+
+.h2-span {
+  font-weight: 700;
+}
+
+.tag {
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 23px;
+  margin-left: 17px;
+  margin-top: 23px;
+  border-radius: 15px;
+}
+
+.tag-content {
+  padding-bottom: 15px;
+  margin-bottom: 15px !important;
+  font-size: 12px;
+}
 
 @media (max-width: 800px) {
   .collection {
