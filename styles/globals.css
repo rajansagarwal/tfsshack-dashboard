@@ -43,7 +43,6 @@ body,
 }
 .row [class^='col'] {
   float: left;
-  margin: 0.5rem 2%;
   min-height: 0.125rem;
 }
 .col-1,
@@ -109,6 +108,7 @@ body,
   /* 540px */
   .container {
     width: 80%;
+    margin-left: 5vw;
   }
 }
 
@@ -179,6 +179,20 @@ input {
   font-size: 0.9rem;
   background-color: var(--custom-bg-color);
   color: var(--custom-color);
+}
+
+.collection {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 800px) {
+  .collection {
+    display: block;
+  }
+  .card {
+    margin-bottom: 15px;
+  }
 }
 
 input[disabled] {
@@ -255,6 +269,9 @@ button.primary,
   border: var(--custom-border);
   border-radius: var(--custom-border-radius);
   padding: var(--custom-spacing);
+  padding-left: 20px;
+  margin-bottom: 15px;
+  margin-right: 20px;
 }
 
 .avatar {

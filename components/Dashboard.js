@@ -70,30 +70,58 @@ export default function Account({ session }) {
 
   let favicon = document.getElementById('favicon');
 
-  function name() {
-    if (username === null || 'email_address') {
+useEffect(() => {
+      document.title = `${naming}'s Dashboard`;
+    favicon = `${avatar_url}`;
+})
+
+function name() {
+    if (username === '') {
         return `${session.user.email}`
     }
     else {
         return `${username}`
     }
   }
-  
-  const naming = name();
 
-  useEffect(() => {
-    document.title = `${naming}'s Dashboard`;
-    favicon = `${avatar_url}`;
-  })
+  const naming = name();
 
   return (
     <div>
         <h1>Hey, {naming}</h1>
         <h2>Welcome to the Turner Fenton Hack Club Dashboard!</h2>
         <br/><br/>
-        <div>Update your preferences <Link href='/account'>here!</Link></div>
-        <div>
+        <div> 
+        </div>
+        <br/><br/>
+        <div className="row collection">
+        <div className="col-12 collection">
+         <div className="card">
+             <h2>Web Development</h2>
+             <i>Content Description Goes Here</i>
+             <p>Actual Content Goes Here </p>
+         </div>
+         <div className="card">
+             <h2>Web Development</h2>
+             <i>Content Description Goes Here</i>
+             <p>Actual Content Goes Here </p>
+         </div>
       </div>
+         </div>
+         <div className="row collection">
+        <div className="col-12 collection">
+         <div className="card">
+             <h2>Web Development</h2>
+             <i>Content Description Goes Here</i>
+             <p>Actual Content Goes Here </p>
+         </div>
+         <div className="card">
+             <h2>Web Development</h2>
+             <i>Content Description Goes Here</i>
+             <p>Actual Content Goes Here </p>
+         </div>
+      </div>
+         </div>
       <div>
       </div>
     </div>
