@@ -6,9 +6,7 @@ import Link from 'next/link'
 
 export default function Account({ session }) {
   const [loading, setLoading] = useState(true)
-  const [username, setUsername] = useState(null)
-  const [website, setWebsite] = useState(null)
-  const [avatar_url, setAvatarUrl] = useState(null)
+  const [username, setUsername] = useState('Hacker')
 
   useEffect(() => {
     getProfile()
