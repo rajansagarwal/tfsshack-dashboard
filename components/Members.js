@@ -1,14 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, PropTypes } from 'react'
 import { supabase } from '../utils/supabaseClient'
 import Avatar from './Avatar'
 import Image from './Image'
 import Link from 'next/link'
 
-export default function Account({ session }) {
-  const [loading, setLoading] = useState(true)
+export default function Members({ session }) {
   const [username, setUsername] = useState(null)
-  const [website, setWebsite] = useState(null)
-  const [avatar_url, setAvatarUrl] = useState(null)
 
   useEffect(() => {
     getProfile()
@@ -23,7 +20,6 @@ export default function Account({ session }) {
         .from('profiles')
         .select(`username`)
         .eq('id', user.id)
-        .single()
 
       if (error && status !== 406) {
         throw error
@@ -64,24 +60,30 @@ function name() {
         <br/><br/>
         <div className="row collection">
         <div className="col-12 collection">
-        <a href="https://tfsshack-dashboard.vercel.app/web" style={{
-            textDecoration: 'none'
-        }}>
          <div className="card">
              <h2>Web Development</h2>
              <i>Content Description Goes Here</i>
              <p>Actual Content Goes Here </p>
          </div>
-         </a>
-         <a href="https://tfsshack-dashboard.vercel.app/ai" style={{
-            textDecoration: 'none'
-        }}>
          <div className="card">
-             <h2>Artificial Intelligence</h2>
+             <h2>Web Development</h2>
              <i>Content Description Goes Here</i>
              <p>Actual Content Goes Here </p>
          </div>
-         </a>
+      </div>
+         </div>
+         <div className="row collection">
+        <div className="col-12 collection">
+         <div className="card">
+             <h2>Web Development</h2>
+             <i>Content Description Goes Here</i>
+             <p>Actual Content Goes Here </p>
+         </div>
+         <div className="card">
+             <h2>Web Development</h2>
+             <i>Content Description Goes Here</i>
+             <p>Actual Content Goes Here </p>
+         </div>
       </div>
          </div>
       <div>

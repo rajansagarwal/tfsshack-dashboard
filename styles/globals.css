@@ -34,7 +34,7 @@ body,
 
 .container {
   width: 100%;
-  margin-left: 20vw;
+  margin-left: 1vw;
   margin-right: auto;
 }
 .row {
@@ -110,6 +110,9 @@ body,
     width: 80%;
     margin-left: 5vw;
   }
+  .grid {
+    max-width: 60vw;
+  }
 }
 
 @media only screen and (min-width: 45em) {
@@ -161,6 +164,9 @@ body,
     margin-left: 10vw;
     max-width: 60rem;
   }
+  .grid {
+    max-width: 40vw;
+  }
 }
 
 label {
@@ -181,10 +187,6 @@ input {
   color: var(--custom-color);
 }
 
-.collection {
-  display: flex;
-  justify-content: space-between;
-}
 
 @media (max-width: 800px) {
   .collection {
@@ -261,6 +263,14 @@ button.primary,
 .button.primary {
   background-color: var(--custom-color-brand);
   border: 1px solid var(--custom-color-brand);
+}
+
+.grid {
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  flex-wrap: wrap;
+  max-width: 90vw;
 }
 
 .card {
