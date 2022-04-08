@@ -81,8 +81,9 @@ export default function Account({ session }) {
   }
 
   useEffect(() => {
-    document.title = `${naming}'s Account`;
-  })
+    getProfile()
+    document.title = `${naming}'s Dashboard`;
+  }, [session])
 
   return (
     <div className="form-widget">

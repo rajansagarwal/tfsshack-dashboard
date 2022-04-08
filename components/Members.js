@@ -61,7 +61,7 @@ export default function Account({ session }) {
             <br/>
             <ol>
             {members.map(function(item) {
-              return <li>{item}</li>;
+              return <li key={item}>{item}</li>;
             })}
             </ol>
           </div>

@@ -9,11 +9,6 @@ export default function Account({ session }) {
   const [username, setUsername] = useState('Hacker')
   const [isProfile, setIsProfile] = useState(true)
 
-  useEffect(() => {
-    getProfile()
-    document.title = `${naming}'s Dashboard`;
-  }, [session])
-
   async function getProfile() {
     try {
       setLoading(true)
@@ -53,6 +48,11 @@ function name() {
   }
 
   const naming = name();
+
+  useEffect(() => {
+    getProfile()
+    document.title = `${naming}'s Dashboard`;
+  }, [session])
 
   return (
     <div>
