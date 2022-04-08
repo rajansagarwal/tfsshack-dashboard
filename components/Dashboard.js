@@ -7,9 +7,11 @@ import Link from 'next/link'
 export default function Account({ session }) {
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState('Hacker')
+  const [isProfile, setIsProfile] = useState(true)
 
   useEffect(() => {
     getProfile()
+    document.title = `${naming}'s Dashboard`;
   }, [session])
 
   async function getProfile() {
@@ -27,8 +29,11 @@ export default function Account({ session }) {
         throw error
       }
 
+      console.log(data)
+      
       if (data) {
         setUsername(data.username)
+        setIsProfile(false)
       }
     } catch (error) {
       alert(error.message)
@@ -37,9 +42,6 @@ export default function Account({ session }) {
     }
   }
 
-useEffect(() => {
-      document.title = `${naming}'s Dashboard`;
-})
 
 function name() {
     if (username === '') {
@@ -56,8 +58,17 @@ function name() {
     <div>
         <h1>Hey, {naming}</h1>
         <h2>Welcome to the <span className="h2-span">Turner Fenton Hack Club Dashboard!</span></h2>
-        <br/><br/>
+
         <div> 
+          {isProfile ? (
+            <>
+            <p>You can set up your username here.</p>
+            </>
+          ) : (
+            <>
+            View your profile here!
+            </>
+          )}
         </div>
         <br/><br/>
         <div className="row collection">
@@ -66,7 +77,7 @@ function name() {
             textDecoration: 'none'
         }}>
          <div className="card">
-             <h2>Web Development</h2>
+             <h2><b>Web Development</b></h2>
              <i>Content Description Goes Here</i>
              <p>Actual Content Goes Here </p>
          </div>
@@ -75,7 +86,7 @@ function name() {
             textDecoration: 'none'
         }}>
          <div className="card">
-             <h2>Artificial Intelligence</h2>
+             <h2><b>Artificial Intelligence</b></h2>
              <i>Content Description Goes Here</i>
              <p>Actual Content Goes Here </p>
          </div>

@@ -4,11 +4,16 @@ import Avatar from './Avatar'
 import Image from './Image'
 import Link from 'next/link'
 
-export default function Members({ session }) {
-  const [username, setUsername] = useState(null)
+export default function Account({ session }) {
+  const [loading, setLoading] = useState(true)
+  const [members, setMembers] = useState([])
+  const [isAdmin, setIsAdmin] = useState(false)
+  
+  let array = ['Rajan']
 
   useEffect(() => {
     getProfile()
+    document.title = `Dashboard`;
   }, [session])
 
   async function getProfile() {
@@ -18,15 +23,25 @@ export default function Members({ session }) {
 
       let { data, error, status } = await supabase
         .from('profiles')
-        .select(`username`)
-        .eq('id', user.id)
 
       if (error && status !== 406) {
         throw error
       }
 
+      for (let i = 0; i < data.length; i++) {
+        array.push(`${data[i].username}`)
+      }
+
+      console.log(array)
+
+      if (session.user.email == '870220@pdsb.net') {
+        setIsAdmin(true) 
+      }
+
       if (data) {
-        setUsername(data.username)
+        for (let i = 0; i < data.length; i++) {
+          members.push(`${data[i].username}`)
+        }
       }
     } catch (error) {
       alert(error.message)
@@ -35,59 +50,30 @@ export default function Members({ session }) {
     }
   }
 
-useEffect(() => {
-      document.title = `${naming}'s Dashboard`;
-})
-
-function name() {
-    if (username === '') {
-        return `${session.user.email}`
-    }
-    else {
-        return `${username}`
-    }
-  }
-
-  const naming = name();
-
   return (
     <div>
-        <h1>Hey, {naming}</h1>
-        <h2>Welcome to the Turner Fenton Hack Club Dashboard!</h2>
-        <br/><br/>
-        <div> 
-        </div>
-        <br/><br/>
-        <div className="row collection">
-        <div className="col-12 collection">
-         <div className="card">
-             <h2>Web Development</h2>
-             <i>Content Description Goes Here</i>
-             <p>Actual Content Goes Here </p>
-         </div>
-         <div className="card">
-             <h2>Web Development</h2>
-             <i>Content Description Goes Here</i>
-             <p>Actual Content Goes Here </p>
-         </div>
-      </div>
-         </div>
-         <div className="row collection">
-        <div className="col-12 collection">
-         <div className="card">
-             <h2>Web Development</h2>
-             <i>Content Description Goes Here</i>
-             <p>Actual Content Goes Here </p>
-         </div>
-         <div className="card">
-             <h2>Web Development</h2>
-             <i>Content Description Goes Here</i>
-             <p>Actual Content Goes Here </p>
-         </div>
-      </div>
-         </div>
-      <div>
-      </div>
+        <h2>
+        </h2>
+        {isAdmin ? (
+          <div>
+            <h2 className="h2-span">You have admin access to this page.</h2>
+            <h3><u>Member List</u></h3>
+            <br/>
+            <ol>
+            {members.map(function(item) {
+              return <li>{item}</li>;
+            })}
+            </ol>
+          </div>
+        ) : (
+          <div>
+            <div>
+              <h2>You do not have admin access to this page</h2>
+              <h2>Please return to the dashboard.</h2>
+
+            </div>
+          </div>
+        )}
     </div>
   )
 }
