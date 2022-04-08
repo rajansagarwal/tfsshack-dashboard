@@ -62,11 +62,11 @@ function name() {
         <div> 
           {isProfile ? (
             <>
-            <p>You can set up your username here.</p>
+            <p>You can set up your username <Link href="/account">here</Link>.</p>
             </>
           ) : (
             <>
-            View your profile here!
+            View your profile <Link href="/account">here</Link>!
             </>
           )}
         </div>
