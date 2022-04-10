@@ -51,7 +51,7 @@ function name() {
 
   useEffect(() => {
     getProfile()
-    document.title = `${naming}'s Dashboard`;
+    document.title = `${naming} Dashboard`;
   }, [session])
 
   return (
