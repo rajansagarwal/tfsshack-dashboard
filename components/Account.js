@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../utils/supabaseClient'
 import Avatar from './Avatar'
+import { useRouter } from 'next/router'
 import Image from './Image'
 import Link from 'next/link'
 
@@ -8,7 +9,10 @@ export default function Account({ session }) {
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState(null)
   const [website, setWebsite] = useState(null)
+  const [admin, setAdmin] = useState(false)
+  const [access, setAccess] = useState(false)
   const [avatar_url, setAvatarUrl] = useState(null)
+  const router = useRouter()
 
   useEffect(() => {
     getProfile()
@@ -33,7 +37,7 @@ export default function Account({ session }) {
 
       let { data, error, status } = await supabase
         .from('profiles')
-        .select(`username, website, avatar_url`)
+        .select(`username, website, avatar_url, Access, Admin`)
         .eq('id', user.id)
         .single()
 
@@ -45,6 +49,8 @@ export default function Account({ session }) {
         setUsername(data.username)
         setWebsite(data.website)
         setAvatarUrl(data.avatar_url)
+        setAccess(data.Access)
+        setAdmin(data.Admin)
       }
     } catch (error) {
       alert(error.message)
@@ -77,6 +83,7 @@ export default function Account({ session }) {
       alert(error.message)
     } finally {
       setLoading(false)
+      router.push('/')
     }
   }
 
@@ -117,6 +124,35 @@ export default function Account({ session }) {
           onChange={(e) => setWebsite(e.target.value)}
         />
       </div>
+    <div style={{
+      display: 'flex',
+    }}>
+        { access ? (
+          <div style={{
+            width: 150,
+          }}>
+          <input id="email" type="text" value='Member Access' disabled />
+        </div>
+        ) : (
+          <div>
+          <input id="email" type="text" value='You do not have member access.' disabled />
+        </div>
+        )}
+        <div style={{
+          paddingLeft: 15,
+        }}>
+        { admin ? (
+          <div style={{
+            width: 150,
+          }}>
+          <input id="email" type="text" value='Admin Access' disabled />
+          </div>
+        ) : (
+          <div>
+        </div>
+        )}
+      </div>
+      </div>
 <br/><br/>
       <div>
         <button
@@ -127,7 +163,7 @@ export default function Account({ session }) {
           {loading ? 'Loading ...' : 'Update Now'}
         </button>
       </div>
-
+      <br/>
       <div>
         <button className="button block" onClick={() => supabase.auth.signOut()}>
           Sign Out

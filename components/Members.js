@@ -9,7 +9,7 @@ export default function Account({ session }) {
   const [members, setMembers] = useState([])
   const [isAdmin, setIsAdmin] = useState(false)
   
-  let array = ['Rajan']
+  let array = ['870220@pdsb.net', '@696969@pdsb.net']
 
   useEffect(() => {
     getProfile()
@@ -34,9 +34,11 @@ export default function Account({ session }) {
 
       console.log(array)
 
-      if (session.user.email == '870220@pdsb.net') {
+    for (let i = 0; i < array.length; i++) {
+      if (session.user.email == array[i]) {
         setIsAdmin(true) 
       }
+    }
 
       if (data) {
         for (let i = 0; i < data.length; i++) {
