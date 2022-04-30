@@ -6,8 +6,37 @@ import Link from 'next/link'
 
 export default function Account({ session }) {
   const [loading, setLoading] = useState(true)
+  const [posts, setPosts] = useState([])
   const [username, setUsername] = useState('Hacker')
   const [isProfile, setIsProfile] = useState(true)
+  const [loads, setLoads] = useState(true)
+  const [admin, setAdmin] = useState(false)
+  const [access, setAccess] = useState(false)
+  
+  useEffect(() => {
+    fetchPosts()
+    getProfile()
+    document.title = `${naming} Dashboard`;
+
+    const mySubscription = supabase
+      .from('posts')
+      .on('*', () => {
+        console.log('something happened....')
+        fetchPosts()
+      })
+      .subscribe()
+    return () => supabase.removeSubscription(mySubscription)
+  }, [])
+  
+  async function fetchPosts() {
+    const { data, error } = await supabase
+      .from('posts')
+      .select()
+    setPosts(data)
+    setLoads(false)
+  }
+  if (loads) return <p className="text-2xl">Loading ...</p>
+  if (!posts.length) return <p className="text-2xl">No posts.</p>
 
   async function getProfile() {
     try {
@@ -16,7 +45,7 @@ export default function Account({ session }) {
 
       let { data, error, status } = await supabase
         .from('profiles')
-        .select(`username`)
+        .select(`username, Access, Admin`)
         .eq('id', user.id)
         .single()
 
@@ -29,11 +58,13 @@ export default function Account({ session }) {
       if (data) {
         setUsername(data.username)
         setIsProfile(false)
+        setAccess(data.Access)
+        setAdmin(data.Admin)
       }
     } catch (error) {
       alert(error.message)
     } finally {
-      setLoading(false)
+      setLoads(false)
     }
   }
 
@@ -49,17 +80,12 @@ function name() {
 
   const naming = name();
 
-  useEffect(() => {
-    getProfile()
-    document.title = `${naming} Dashboard`;
-  }, [session])
-
   return (
     <div style={{
       display: 'block'
     }}>
         <h1>Hey, {naming}</h1>
-        <h2>Welcome to the <span className="h2-span">Turner Fenton Hack Club Dashboard!</span></h2>
+        <h2>Welcome to the <span className="h2-span">Turner Fenton DECA Dashboard!</span></h2>
 
         <div> 
           {isProfile ? (
@@ -73,29 +99,30 @@ function name() {
           )}
         </div>
         <br/><br/>
-        <div className="row collection">
-        <div className="col-12 collection">
-        <a href="https://tfsshack-dashboard.vercel.app/web" style={{
-            textDecoration: 'none'
-        }}>
-         <div className="card">
-             <h2><b>Web Development</b></h2>
-             <i>Content Description Goes Here</i>
-             <p>Actual Content Goes Here </p>
-         </div>
-         </a>
-         <a href="https://tfsshack-dashboard.vercel.app/ai" style={{
-            textDecoration: 'none'
-        }}>
-         <div className="card">
-             <h2><b>Artificial Intelligence</b></h2>
-             <i>Content Description Goes Here</i>
-             <p>Actual Content Goes Here </p>
-         </div>
-         </a>
-      </div>
-         </div>
       <div>
+
+    { access ? (
+      <div className="row collection">
+        <div className="col-12 collection">
+      {
+        posts.map(post => (
+          <a key={post.id} href={post.title} style={{
+            textDecoration: 'none',
+          }}>
+            <div className="card">
+             <h2><b>{post.title}</b></h2>
+             <i>{post.subtitle}</i>
+             <p>{post.date} </p>
+         </div>
+          </a>)
+        )
+      }
+</div></div>
+) : (
+  <div>
+    Whoops! It appears that you don't have access to this page!<br/><br/> This page is currently under construction, and only available to students that made it to JOT Masters.
+  </div>
+)}
       </div>
     </div>
   )
