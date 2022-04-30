@@ -11,7 +11,7 @@ export default function Account({ session }) {
   const [website, setWebsite] = useState(null)
   const [admin, setAdmin] = useState(false)
   const [access, setAccess] = useState(false)
-  const [avatar_url, setAvatarUrl] = useState(null)
+  // const [avatar_url, setAvatarUrl] = useState(null)
   const router = useRouter()
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function Account({ session }) {
       if (data) {
         setUsername(data.username)
         setWebsite(data.website)
-        setAvatarUrl(data.avatar_url)
+        // setAvatarUrl(data.avatar_url)
         setAccess(data.Access)
         setAdmin(data.Admin)
       }
@@ -68,7 +68,7 @@ export default function Account({ session }) {
         id: user.id,
         username,
         website,
-        avatar_url,
+        // avatar_url,
         updated_at: new Date(),
       }
 
@@ -94,14 +94,16 @@ export default function Account({ session }) {
 
   return (
     <div className="form-widget">
-        <Avatar
+     {/*   <Avatar
       url={avatar_url}
       size={150}
       onUpload={(url) => {
         setAvatarUrl(url)
         updateProfile({ username, website, avatar_url: url })
-      }}
-    /><br/><br/>
+      }} 
+    />
+    */}
+    <br/><br/>
       <div>
         <label htmlFor="email">Email</label>
         <input id="email" type="text" value={session.user.email} disabled />
