@@ -23,10 +23,10 @@ export default function Auth() {
   }
 
   return (
-    <div className="row flex flex-center">
-      <div className="col-6 form-widget">
+    <div className="row">
+      <div className="form-widget">
         <h1 className="header">Turner Fenton Hack Club</h1>
-        <p className="description">Sign in via magic link with your email below</p>
+        <p className="description">Sign in via magic link or Metamask with your email below</p>
         <div>
           <input
             className="inputField"
@@ -46,7 +46,7 @@ export default function Auth() {
             disabled={loading}
           >
             <span>{loading ? 'Sending...' : 'Send magic link'}</span>
-          </button>
+          </button><br/><br/>
         </div>
         {warning}
       </div>

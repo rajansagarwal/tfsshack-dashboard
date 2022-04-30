@@ -55,7 +55,9 @@ function name() {
   }, [session])
 
   return (
-    <div>
+    <div style={{
+      display: 'block'
+    }}>
         <h1>Hey, {naming}</h1>
         <h2>Welcome to the <span className="h2-span">Turner Fenton Hack Club Dashboard!</span></h2>
 
